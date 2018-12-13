@@ -10,8 +10,7 @@
 ## 完整代码
 ```javascript
 
-function LinkedList() {
-
+     function LinkedList() {
         function Node(element) {
           this.element = element
           this.next = null
