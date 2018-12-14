@@ -10,16 +10,20 @@
 ## 完整代码
 ```javascript
 
-     function LinkedList() {
-        function Node(element) {
+     class Node {
+        constructor(element) {
           this.element = element
           this.next = null
         }
+      }
 
-        let length = 0
-        this.head = null
-        
-        this.append = (element) => {
+      class LinkedList {
+        constructor() {
+          this.head = null
+          this.length = 0
+        }
+
+        append(element) {
           let node = new Node(element)
           let current
 
@@ -32,11 +36,11 @@
             }
             current.next = node
           }
-          length++
+          this.length++
           return this
         }
 
-        this.toString = () => {
+        toString() {
           let string = '',
               current = head
 
@@ -47,8 +51,8 @@
 
           return string
         }
-
       }
+      
 
       let palindrome = new LinkedList()
       let string = 'abcdcba'
