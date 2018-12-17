@@ -1,0 +1,53 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../linkList.js"></script>
+    <script>
+      let palindrome = new LinkedList()
+      let string = 'abcdcba'
+      
+      for (let i = 0; i < string.length; i++) {
+        palindrome.append(string[i])
+      }
+
+      function isPalindrome(linkList) {
+        if (linkList.head === null || linkList.head.next === null) {
+          return false
+        }
+
+        let prev = null
+        let fast = linkList.head
+        let slow = linkList.head
+
+        while (fast !== null && fast.next !== null) {
+          fast = fast.next.next
+          next = slow.next
+          slow.next = prev
+          prev = slow
+          slow = next
+        }
+
+        if (fast !== null) {
+          slow = slow.next
+        }
+
+        while (slow !== null) {
+          if (slow.element !== prev.element) {
+            return false
+          }
+
+          slow = slow.next
+          prev = prev.next
+
+          return true
+        }
+      }
+
+      let result = isPalindrome(palindrome)
+    </script>
+  </body>
+  </html>
