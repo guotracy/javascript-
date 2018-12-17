@@ -10,88 +10,44 @@
 ## 完整代码
 ```javascript
 
-     class Node {
-        constructor(element) {
-          this.element = element
-          this.next = null
-        }
-      }
+ let palindrome = new LinkedList()
+ let string = 'abcdcba'
 
-      class LinkedList {
-        constructor() {
-          this.head = null
-          this.length = 0
-        }
+ for (let i = 0; i < string.length; i++) {
+   palindrome.append(string[i])
+ }
 
-        append(element) {
-          let node = new Node(element)
-          let current
+ function isPalindrome(linkList) {
+   if (linkList.head === null || linkList.head.next === null) {
+     return false
+   }
 
-          if(this.head === null) {
-            this.head = node
-          } else {
-            current = this.head
-            while (current.next) {
-              current = current.next
-            }
-            current.next = node
-          }
-          this.length++
-          return this
-        }
+   let prev = null
+   let fast = linkList.head
+   let slow = linkList.head
 
-        toString() {
-          let string = '',
-              current = head
+   while (fast !== null && fast.next !== null) {
+     fast = fast.next.next
+     next = slow.next
+     slow.next = prev
+     prev = slow
+     slow = next
+   }
 
-          while (current) {
-            string += current.element
-            current = current.next
-          }
+   if (fast !== null) {
+     slow = slow.next
+   }
 
-          return string
-        }
-      }
-      
+   while (slow !== null) {
+     if (slow.element !== prev.element) {
+       return false
+     }
 
-      let palindrome = new LinkedList()
-      let string = 'abcdcba'
-      
-      for (let i = 0; i < string.length; i++) {
-        palindrome.append(string[i])
-      }
+     slow = slow.next
+     prev = prev.next
 
-      function isPalindrome(linkList) {
-        if (linkList.head === null || linkList.head.next === null) {
-          return false
-        }
+     return true
+   }
+ }
 
-        let prev = null
-        let fast = linkList.head
-        let slow = linkList.head
-
-        while (fast !== null && fast.next !== null) {
-          fast = fast.next.next
-          next = slow.next
-          slow.next = prev
-          prev = slow
-          slow = next
-        }
-
-        if (fast !== null) {
-          slow = slow.next
-        }
-
-        while (slow !== null) {
-          if (slow.element !== prev.element) {
-            return false
-          }
-
-          slow = slow.next
-          prev = prev.next
-
-          return true
-        }
-      }
-
-      let result = isPalindrome(palindrome)
+ let result = isPalindrome(palindrome)
