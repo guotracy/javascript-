@@ -60,3 +60,35 @@ const selectionSort = (arr = []) => {
     arr[minIndex] = temp
   }
 }
+
+/*快速排序
+
+*/
+const quickSort = (arr = [], left = 0, right = arr.length -1) => {
+  if (left < right) {
+    let pivot = right,
+        pivotPosition = partition(arr, pivot, left, right)
+    quickSort(arr, left, pivotPosition - 1 < left ? left : pivotPosition - 1)
+    quickSort(arr, pivotPosition + 1 > right ? right : pivotPosition + 1, right)
+  }
+}
+
+const swap = (arr, i, j) => {
+  const temp = arr[i]
+  arr[i] = arr[j]
+  arr[j] = temp
+}
+
+const partition = (arr, pivot, left, right) => {
+  const pivotVal = arr[pivot]
+  let startIndex = left
+
+  for(let i = left; i < right; i++) {
+    if (arr[i] < pivotVal) {
+       swap(arr, i, startIndex)
+       startIndex++
+    }
+  }
+  swap(arr, startIndex, pivot)
+  return startIndex
+}
