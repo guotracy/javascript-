@@ -48,6 +48,24 @@
       }
 
       let result = isPalindrome(palindrome)
+
+
+      function throttle(fn, wait) {
+        let previous = 0,
+            context,
+            args
+            
+        return funcion() {
+          let now = +new Date()
+          context = this
+          args = arguments
+
+          if (now - previous > wait) {
+            fn.apply(context, args)
+            previous = now
+          }
+        }
+      }
     </script>
   </body>
   </html>
