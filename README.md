@@ -10,4 +10,4 @@ Linked List
 
 递归
 
-[拼接两个有序数组为一个有序数组](https://github.com/guoxi123/leetcode-javascript/blob/master/recursion/merginOrderedArray.js)
+[拼接两个有序数组为一个有序数组](https://github.com/guoxi123/leetcode-javascript/blob/master/recursion/mergeOrderedArray.js)
