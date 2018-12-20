@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const nine = (num) => {
+      if (num === 1) {
+        console.log('1 * 1 = 1')
+      } else {
+        for(let i = 1; i < num + 1; i++) {
+          console.log(`${num} * ${i} = ${i * num}`)
+        }
+        nine(--num)
+      }
+    }
+
+    nine(9)
+  </script>
+</body>
+</html>

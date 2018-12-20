@@ -2,7 +2,7 @@
   递归方式实现
 */
 
-const merginOrderedArray = (arr1, arr2) => {
+const mergeOrderedArray = (arr1, arr2) => {
   let _arr = [],
       length1 = arr1.length,
       length2 = arr2.length
@@ -16,7 +16,6 @@ const merginOrderedArray = (arr1, arr2) => {
         movePointer(i, ++j)
       }
     }
-  
   }
   movePointer()
 }
