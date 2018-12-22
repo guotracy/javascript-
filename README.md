@@ -11,3 +11,6 @@ Linked List
 递归
 
 [拼接两个有序数组为一个有序数组](https://github.com/guoxi123/leetcode-javascript/blob/master/recursion/mergeOrderedArray.js)
+
+排序
+[归并排序/快速排序](https://github.com/guoxi123/leetcode-javascript/blob/master/sort/sort.js)
