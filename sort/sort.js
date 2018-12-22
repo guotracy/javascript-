@@ -62,7 +62,12 @@ const selectionSort = (arr = []) => {
 }
 
 /*快速排序
-
+  如果要排序数组下表从p到r之间的一组数据，我们选择p到r之间的任意一个数据作为pivot
+  遍历p到r之间的数据，将小于pivot的放左边，将大于pivot的放右边，将pivot放中间。
+  这一步骤知乎，数组p到r之间的数据分为3部分，前面p到q-1之间都是小于pivot的，中间是pivot，
+  后面q+ 1到r之间是大于pivot的。
+  根据分治、递归处理思想，我们可以用递归排序小标从p到q-1之间的数据和小标从去+ 1到r
+  之间的数据，知道区间缩小为1，就说明所有的数据都是有序
 */
 const quickSort = (arr = [], left = 0, right = arr.length -1) => {
   if (left < right) {
@@ -91,4 +96,36 @@ const partition = (arr, pivot, left, right) => {
   }
   swap(arr, startIndex, pivot)
   return startIndex
+}
+
+/*归并排序
+  如果要排序一个数组，先把数组从中间分成前后两个部分，然后对前后两部分分班排序，再讲排好序
+  的两部分分合并在一起，这样整个数组就有序了
+*/
+
+const mergeSort = (arr) => {
+  if (arr.length <= 1) return arr
+  const middle = Math.floor(arr.length / 2)
+  const left = arr.slice(0, middle)
+  const right = arr.slice(middle)
+  
+  return mergeArr(mergeSort(left), mergeSort(right))
+}
+
+const mergeArr = (left, right) => {
+  let temp = []
+  let leftIndex = 0
+  let rightIndex = 0
+
+  while (left.length > leftIndex && right.length > rightIndex){
+    if (left[leftIndex] <= right[rightIndex]) {
+      temp.push(left[leftIndex])
+      leftIndex++
+    } else {
+      temp.push(right[rightIndex])
+      rightIndex++
+    }
+  }
+
+  return temp.concat(left.slice(leftIndex)).concat(right.slice(rightIndex))
 }
