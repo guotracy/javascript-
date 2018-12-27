@@ -134,16 +134,12 @@ const mergeArr = (left, right) => {
   适用于当要排序n个数据，所处的范围并不大，比如最大值是k，我们可以划分成k+1个桶，每个桶的数据都一样，省去了桶内排序的问题
 */
 const countingSort = (arr = []) => {
-  if (arr.length <= 1) return 
-  const maxVal = Math.max(...arr)
-  const classifyArr = new Array(maxVal)
-  const classifyArrLength = classifyArr.length
   const length = arr.length
+  if (length <= 1) return 
+  const maxVal = Math.max(...arr)
+  const classifyArr = new Array(maxVal + 1).fill(0)
+  const classifyArrLength = classifyArr.length
   const resutArr = []
-
-  for (let j = 0; j <= classifyArrLength; j++) {
-    classifyArr[j] = 0
-  }
   
   for (let i = 0; i < length; i++) {
      const arrItem = arr[i]
@@ -152,10 +148,10 @@ const countingSort = (arr = []) => {
 
   classifyArr.forEach((item, index) => index > 0 && (classifyArr[index] = item + classifyArr[index -1]))
 
-  for (let y = length -1; y >= 0; y--) {
-    let index = classifyArr[arr[y]]
-    resutArr[index-1] = arr[y]
-    classifyArr[arr[y]]--
+  for (let j = length -1; j >= 0; j--) {
+    let index = classifyArr[arr[j]]
+    resutArr[index-1] = arr[j]
+    classifyArr[arr[j]]--
   }
 
   return resutArr
