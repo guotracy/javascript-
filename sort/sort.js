@@ -148,6 +148,7 @@ const countingSort = (arr = []) => {
 
   classifyArr.forEach((item, index) => index > 0 && (classifyArr[index] = item + classifyArr[index -1]))
 
+  //从后往前是为了排序的稳定性
   for (let j = length -1; j >= 0; j--) {
     let index = classifyArr[arr[j]]
     resutArr[index-1] = arr[j]
