@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./sort.js"></script>
+  <script>
+    let findClosestElements = function(arr, k, x) {
+       let length = arr.length 
+       let pointer =  0
+       let _arr = []
+       let left = 0
+       let right = length
+       while (Math.abs(arr[pointer] - x) > Math.abs(arr[pointer + 1] -x)) {
+         ++pointer  
+       }
+        _arr.push(arr[pointer])
+       left = pointer > 0  ? (pointer - 1) : 0
+       right = pointer < length ? (pointer + 1) : length
+
+       while (_arr.length < k) {
+        if (!left || (Math.abs(arr[left] - x) > Math.abs(arr[right] - x) && right <= length) ) {
+            _arr.push(arr[right])
+            ++right
+         } else {
+             _arr.unshift(arr[left])
+            --left
+         }
+       }
+        
+       return _arr
+    };
+
+    // const result = findClosestElements([1,2,3,4,5], 4, -1)
+    // console.log(result)
+    
+    const createIterator = (items) => {
+      let index = 0
+
+      return {
+        next: () => {
+          const done = (index >= items.length)
+          const value = !done ? items[index++] : undefined
+
+          return {
+            done,
+            value
+          }
+        }
+      }
+    }
+
+    const iterator = createIterator([1,2,3])
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.next())
+
+    function * iteratorFun() {
+      let first = yield 1
+      let second
+      try {
+        second = yield first + 1
+      } catch (e) {
+        second = 6
+      }
+      
+      yield second + 3
+    }
+
+    const iterator1 = iteratorFun()
+    console.log(iterator1.next())
+    console.log(iterator1.next(4))
+    console.log(iterator1.throw(new Error('error')))
+
+
+    function *createNumberIterator() {
+      yield 1
+      yield 2
+    }
+
+    function *createColorIterator(){
+      yield 'red'
+      yield 'green'
+    }
+
+    function *creatCombinedIterator(){
+      yield *createNumberIterator()
+      yield *createColorIterator()
+      yield true
+    }
+
+
+    const combinedIterator = creatCombinedIterator()
+    console.log(combinedIterator.next())
+    console.log(combinedIterator.next())
+    console.log(combinedIterator.next())
+    console.log(combinedIterator.next())
+    console.log(combinedIterator.next())
+
+
+    function run (taskDef){
+      let task = taskDef()
+
+      let result = task.next()
+
+      function step() {
+
+        if (!result.done) {
+          if (typeof result.value === 'function') {
+            result.value(function(err, data) {
+              if (err) {
+                result = new Error('error')
+                return
+              }
+              result = task.next(data)
+              step()
+            })
+          } else {
+            result = task.next(result.value)
+            step()
+          }
+        }
+      }
+      step()
+    }
+
+    function fetchData() {
+      return function (callback) {
+        setTimeout(() => {
+          callback(null, 'hi')
+        }, 2500)
+      }
+    }
+
+    run(function *() {
+      let value = yield fetchData()
+      console.log(value)
+      value = yield 'hello' + value
+      console.log(value)
+    })
+
+
+
+
+
+
+
+
+
+
+  const list1 = [
+     [1,2,3,4],
+     [1,2,3,4],
+     [1,2,3,4]
+    ]
+
+  const translate = (arr) => {
+    const length = arr.length
+    let _arr = []
+    for (let i = 0; i < length; i++) {
+      let item = arr[i]
+      for (let j = 0; j < item.length; j++){
+        !i && (_arr[j] = [])
+        _arr[j].push(item[j])
+      }
+    }
+    return _arr
+  }
+
+  const resultTranslate = translate(list1)
+  console.log(resultTranslate)
+
+  </script>
+</body>
+</html>

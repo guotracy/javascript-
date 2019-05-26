@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./binary.js"></script>
+  <script>
+    
+
+    const curry = fn => a => b => c => a + b + c
+
+    const curry2 = (fn, ...args) => {
+      if (args.length >= fn.length) {
+        return fn(...args)
+      }
+
+      return (...args2) => {
+        return curry2(fn, ...args, ...args2)
+      }
+    }
+
+    function add(a, b, c) {
+      return a + b + c
+    }
+
+    let carried = curry(add)
+    let carried2 = curry2(add)
+    const res = carried(1)(2)(3)
+    console.log(res)
+    const res2 = carried2(1)(2)(3) 
+    console.log(res2)
+  </script>
+</body>
+</html>

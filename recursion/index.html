@@ -3,21 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    .container,
+    .middle,
+    .left,
+    .right {
+
+      padding-bottom: 99999px;
+      margin-bottom: -99999px;
+    }
+    .container {
+      overflow: hidden;
+      background-color: blue;
+      padding: 0 200px 0 150px;
+    }
+    .middle {
+      width: 100%;
+      float: left;
+      background-color: green;
+    }
+    .left {
+      width: 150px;
+      background-color: pink;
+      float: left;
+      margin-left: -100%;
+      position: relative;
+      left: -150px;
+    }
+    .right {
+      width: 200px;
+      background-color: yellow;
+      float: left;
+      margin-left: -200px;
+      position: relative;
+      right: -200px;
+    }
+
+
+    .p1 {font-size: 16px; line-height: 32px;}
+    .s1 {font-size: 2em;}
+    .s2 {font-size: 2em; line-height: 2em;}
+     
+    .p2 {font-size: 16px; line-height: 2;}
+    .s5 {font-size: 2em;}
+    .s6 {font-size: 2em; line-height: 2em;}
+  </style>
 </head>
 <body>
+
+
+  <div class="p1">
+    <div class="s1">1</div>
+      <div class="s2">1</div>
+  </div>
+  <div class="p2">
+    <div class="s5">1</div>
+      <div class="s6">1</div>
+  </div>
+
+
+
+  <div class="container">
+    <div class="middle">
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+      middlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddlemiddle
+    </div>
+    <div class="left">
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+      leftleftleft
+    </div>
+    <div class="right">
+      right
+    </div>
+  </div>
+  <div class="footer">
+    footer
+  </div>
+
+
+
+ 
+
+
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    const nine = (num) => {
-      if (num === 1) {
-        console.log('1 * 1 = 1')
-      } else {
-        for(let i = 1; i < num + 1; i++) {
-          console.log(`${num} * ${i} = ${i * num}`)
-        }
-        nine(--num)
+    $('#name').html("\\u003cimg src=\\'\\' onerror=javascript:alert(\\'okok\\');\\u003e")
+  </script>
+  <script src="./mergeOrderedArray.js"></script>
+  <script>
+  //订阅者发布者模式
+    class Publisher {
+      constructor() {
+        this.subscribers = []
+      }
+      triger(value) {
+        this.subscribers.forEach(subscriber => {
+          subscriber.fire(value)
+        })
       }
     }
 
-    nine(9)
+    class Subscriber {
+      constructor(callback) {
+        this.fire = callback
+      }
+      listen(publisher) {
+        const _self = this
+        const alreadyExist = publisher.subscribers.some(el => {
+          el.fire = _self.fire
+        })
+
+        if (!alreadyExist) {
+          publisher.subscribers.push(this)
+        }
+        return this
+      }
+
+      unListen(publisher) {
+        const _self = this
+        publisher.subscribers = publisher.subscribers.filter(el => {
+          el.fire !== _self.fire
+        })
+        return this
+      }
+    }
+
+    const subscriber = new Subscriber((value) => {
+      console.log(value)
+    })
+    const publisher = new Publisher()
+
+    subscriber.listen(publisher)
+   // subscriber.unListen(publisher)
+    publisher.triger(123)
+
+
+    //千分位匹配
+    const data = 123456789.111
+    const formatData = JSON.stringify(data).replace(/\B(?=(\d{3})+\b)/g, ',')
+    console.log(formatData)
+
+    //
   </script>
 </body>
 </html>
